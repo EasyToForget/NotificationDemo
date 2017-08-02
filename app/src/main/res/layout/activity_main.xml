@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    tools:context="com.smile.notificationdemo.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/cb_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sound" />
+
+        <CheckBox
+            android:id="@+id/cb_lock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:checked="true"
+            android:text="Lock Screen" />
+
+        <CheckBox
+            android:id="@+id/cb_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:checked="true"
+            android:text="Heads-up" />
+
+        <CheckBox
+            android:id="@+id/cb_auto_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cb_sound"
+            android:checked="true"
+            android:text="Auto-cancel" />
+
+        <CheckBox
+            android:id="@+id/cb_only"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/cb_head"
+            android:layout_marginRight="100dp"
+            android:text="Only-one" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Normal" />
+
+    <Button
+        android:id="@+id/btn_big_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Big Text" />
+
+    <Button
+        android:id="@+id/btn_inbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Inbox" />
+
+    <Button
+        android:id="@+id/btn_big_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Big Picture" />
+
+    <Button
+        android:id="@+id/btn_messaging"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Messaging" />
+
+    <Button
+        android:id="@+id/btn_media"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Media" />
+
+    <Button
+        android:id="@+id/btn_decorated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Decorated Custom View" />
+
+    <Button
+        android:id="@+id/btn_decorated_media"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Decorated Media Custom View" />
+
+</LinearLayout>

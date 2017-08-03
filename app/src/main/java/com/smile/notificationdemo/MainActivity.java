@@ -1,7 +1,10 @@
 package com.smile.notificationdemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 
@@ -60,5 +63,17 @@ public class MainActivity extends AppCompatActivity {
                 NotificationUtil.cancel(this);
                 break;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.next, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        startActivity(new Intent(this, SecondActivity.class));
+        return super.onOptionsItemSelected(item);
     }
 }

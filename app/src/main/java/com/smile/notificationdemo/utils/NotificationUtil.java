@@ -23,47 +23,60 @@ import com.smile.notificationdemo.R;
  */
 
 public class NotificationUtil {
+    private final static int ID_FOR_NORMAL = 1;
+    private final static int ID_FOR_BIG_TEXT = 2;
+    private final static int ID_FOR_INBOX = 3;
+    private final static int ID_FOR_BIG_PICTURE = 4;
+    private final static int ID_FOR_MESSAGING = 5;
+    private final static int ID_FOR_MEDIA = 6;
+    private final static int ID_FOR_CUSTOM_VIEW = 7;
 
     public static void normal(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel, boolean isOnly) {
         Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_round);
+
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.setClass(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-        int requestCode = (int) SystemClock.uptimeMillis();
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) SystemClock.uptimeMillis(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setLargeIcon(largeIcon)
                 .setSmallIcon(R.drawable.cry)
                 .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
                 .setContentTitle("This is normal title")
                 .setContentText("This is normal message")
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setAutoCancel(isAutoCancel)
                 .setContentIntent(pendingIntent);
+
         if (isSound) {
             builder.setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.message));
         } else {
             builder.setDefaults(Notification.DEFAULT_ALL);
         }
+
         if (isShowLock) {
             builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         }
+
         builder.setPriority(isHeads ? NotificationCompat.PRIORITY_MAX : NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(isOnly ? 1 : (int) System.currentTimeMillis(), builder.build());
+        notificationManager.notify(isOnly ? ID_FOR_NORMAL : (int) System.currentTimeMillis(), builder.build());
     }
 
 
     public static void bigText(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel, boolean isOnly) {
         Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_round);
+
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.setClass(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-        int requestCode = (int) SystemClock.uptimeMillis();
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) SystemClock.uptimeMillis(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
         NotificationCompat.BigTextStyle style = new NotificationCompat.BigTextStyle();
         style.bigText("This is big big big big big big big big big big big big " +
                 "big big big big big big big big big big big big big big big big " +
@@ -76,22 +89,24 @@ public class NotificationUtil {
                 .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
                 .setContentTitle("This is big title")
                 .setContentText("This is big message")
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setStyle(style)
                 .setAutoCancel(isAutoCancel)
                 .setContentIntent(pendingIntent);
+
         if (isSound) {
             builder.setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.message));
         } else {
             builder.setDefaults(Notification.DEFAULT_ALL);
         }
+
         if (isShowLock) {
             builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         }
+
         builder.setPriority(isHeads ? NotificationCompat.PRIORITY_MAX : NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(isOnly ? 1 : (int) System.currentTimeMillis(), builder.build());
+        notificationManager.notify(isOnly ? ID_FOR_BIG_TEXT : (int) System.currentTimeMillis(), builder.build());
     }
 
     public static void inbox(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel, boolean isOnly) {
@@ -118,7 +133,7 @@ public class NotificationUtil {
                 .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
                 .setContentTitle("This is inbox title")
                 .setContentText("This is inbox message")
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setCategory(NotificationCompat.CATEGORY_EMAIL)
                 .setStyle(style)
                 .setAutoCancel(isAutoCancel)
                 .setContentIntent(pendingIntent);
@@ -135,7 +150,7 @@ public class NotificationUtil {
         builder.setPriority(isHeads ? NotificationCompat.PRIORITY_MAX : NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(isOnly ? 1 : (int) System.currentTimeMillis(), builder.build());
+        notificationManager.notify(isOnly ? ID_FOR_INBOX : (int) System.currentTimeMillis(), builder.build());
     }
 
     public static void bigPicture(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel, boolean isOnly) {
@@ -156,7 +171,6 @@ public class NotificationUtil {
                 .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
                 .setContentTitle("This is big picture title")
                 .setContentText("This is big picture message")
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setStyle(style)
                 .setAutoCancel(isAutoCancel)
                 .setContentIntent(pendingIntent);
@@ -171,7 +185,7 @@ public class NotificationUtil {
         builder.setPriority(isHeads ? NotificationCompat.PRIORITY_MAX : NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(isOnly ? 1 : (int) System.currentTimeMillis(), builder.build());
+        notificationManager.notify(isOnly ? ID_FOR_BIG_PICTURE : (int) System.currentTimeMillis(), builder.build());
     }
 
     public static void messaging(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel, boolean isOnly) {
@@ -212,7 +226,7 @@ public class NotificationUtil {
         builder.setPriority(isHeads ? NotificationCompat.PRIORITY_MAX : NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(isOnly ? 1 : (int) System.currentTimeMillis(), builder.build());
+        notificationManager.notify(isOnly ? ID_FOR_MESSAGING : (int) System.currentTimeMillis(), builder.build());
     }
 
     public static void media(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel, boolean isOnly) {
@@ -237,7 +251,7 @@ public class NotificationUtil {
                 .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
                 .setContentTitle("This is media title")
                 .setContentText("This is media message")
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setCategory(NotificationCompat.CATEGORY_TRANSPORT)
                 .setStyle(style)
                 .setOngoing(true)
                 //.setAutoCancel(isAutoCancel)
@@ -259,7 +273,7 @@ public class NotificationUtil {
         //builder.setPriority(isHeads ? NotificationCompat.PRIORITY_MAX : NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(isOnly ? 1 : (int) System.currentTimeMillis(), builder.build());
+        notificationManager.notify(isOnly ? ID_FOR_MEDIA : (int) System.currentTimeMillis(), builder.build());
 
     }
 

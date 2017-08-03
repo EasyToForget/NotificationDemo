@@ -32,7 +32,19 @@ public class NotificationUtil {
     private final static int ID_FOR_MEDIA = 6;
     private final static int ID_FOR_CUSTOM_VIEW = 7;
 
+    /**
+     * show normal notification
+     *
+     * @param context      context
+     * @param isSound      Set the sound to play.  if no, it will play on the default stream.
+     * @param isShowLock   show when mobile locks screen
+     * @param isHeads      heads up dialog
+     * @param isAutoCancel cancel notification while click
+     * @param isOnly       only show one notification
+     */
     public static void normal(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel, boolean isOnly) {
+        String title = "This is normal title";
+        String text = "This is normal message";
         Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_round);
 
         Intent intent = new Intent(Intent.ACTION_MAIN);

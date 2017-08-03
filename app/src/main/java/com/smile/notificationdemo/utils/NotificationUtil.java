@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.SystemClock;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.NotificationCompat;
+import android.widget.RemoteViews;
 
 import com.smile.notificationdemo.MainActivity;
 import com.smile.notificationdemo.R;
@@ -259,39 +260,12 @@ public class NotificationUtil {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(isOnly ? 1 : (int) System.currentTimeMillis(), builder.build());
+
     }
 
-    public static void custom(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel, boolean isOnly) {
-        Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_round);
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        intent.setClass(context, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-        int requestCode = (int) SystemClock.uptimeMillis();
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        NotificationCompat.DecoratedCustomViewStyle style = new NotificationCompat.DecoratedCustomViewStyle();
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-        builder.setLargeIcon(largeIcon)
-                .setSmallIcon(R.drawable.cry)
-                .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
-                .setContentTitle("This is messaging title")
-                .setContentText("This is messaging message")
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setStyle(style)
-                .setAutoCancel(isAutoCancel)
-                .setContentIntent(pendingIntent);
-        if (isSound) {
-            builder.setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.message));
-        } else {
-            builder.setDefaults(Notification.DEFAULT_ALL);
-        }
-        if (isShowLock) {
-            builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        }
-        builder.setPriority(isHeads ? NotificationCompat.PRIORITY_MAX : NotificationCompat.PRIORITY_DEFAULT);
-
+    public static void cancel(Context context){
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(isOnly ? 1 : (int) System.currentTimeMillis(), builder.build());
+        notificationManager.cancelAll();
     }
+
 }

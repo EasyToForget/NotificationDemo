@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.btn_normal, R.id.btn_big_text, R.id.btn_inbox, R.id.btn_big_picture, R.id.btn_messaging, R.id.btn_media, R.id.btn_decorated, R.id.btn_decorated_media})
+    @OnClick({R.id.btn_normal, R.id.btn_big_text, R.id.btn_inbox, R.id.btn_big_picture, R.id.btn_messaging, R.id.btn_media, R.id.btn_custom, R.id.btn_cancel})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_normal:
@@ -53,9 +53,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_media:
                 NotificationUtil.media(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
                 break;
-            case R.id.btn_decorated:
+            case R.id.btn_custom:
+                //NotificationUtil.custom(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
                 break;
-            case R.id.btn_decorated_media:
+            case R.id.btn_cancel:
+                NotificationUtil.cancel(this);
                 break;
         }
     }

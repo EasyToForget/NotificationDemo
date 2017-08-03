@@ -91,15 +91,15 @@
         android:text="Media" />
 
     <Button
-        android:id="@+id/btn_decorated"
+        android:id="@+id/btn_custom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Decorated Custom View" />
-
+        android:text="Custom View" />
     <Button
-        android:id="@+id/btn_decorated_media"
+        android:id="@+id/btn_cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Decorated Media Custom View" />
+        android:text="Cancel" />
+
 
 </LinearLayout>

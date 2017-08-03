@@ -3,10 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
+    android:padding="20dp"
     tools:context="com.smile.notificationdemo.MainActivity">
 
     <RelativeLayout
@@ -54,52 +52,9 @@
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btn_normal"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Normal" />
-
-    <Button
-        android:id="@+id/btn_big_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Big Text" />
-
-    <Button
-        android:id="@+id/btn_inbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Inbox" />
-
-    <Button
-        android:id="@+id/btn_big_picture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Big Picture" />
-
-    <Button
-        android:id="@+id/btn_messaging"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Messaging" />
-
-    <Button
-        android:id="@+id/btn_media"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Media" />
-
-    <Button
-        android:id="@+id/btn_custom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Custom View" />
-    <Button
-        android:id="@+id/btn_cancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancel" />
-
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

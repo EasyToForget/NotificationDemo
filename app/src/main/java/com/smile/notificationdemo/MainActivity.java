@@ -3,18 +3,22 @@ package com.smile.notificationdemo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.CheckBox;
 
+import com.smile.notificationdemo.utils.NotificationAdapter;
 import com.smile.notificationdemo.utils.NotificationUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NotificationAdapter.OnItemClickListener {
 
     @BindView(R.id.cb_sound)
     CheckBox cbSound;
@@ -26,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
     CheckBox cbAutoCancel;
     @BindView(R.id.cb_only)
     CheckBox cbOnly;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+
+    private List<String> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,33 +41,55 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        initView();
     }
 
-    @OnClick({R.id.btn_normal, R.id.btn_big_text, R.id.btn_inbox, R.id.btn_big_picture, R.id.btn_messaging, R.id.btn_media, R.id.btn_custom, R.id.btn_cancel})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_normal:
+    private void initView() {
+        list.add("Normal");
+        list.add("Normal with action");
+        list.add("Big Text");
+        list.add("Inbox");
+        list.add("Big Picture");
+        list.add("Messaging");
+        list.add("Media");
+        list.add("Custom View");
+        list.add("Cancel");
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        NotificationAdapter adapter = new NotificationAdapter(getApplicationContext(), list);
+        adapter.setOnItemClickListener(this);
+        recyclerView.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void onItemClick(int position) {
+        switch (position) {
+            case 0:
                 NotificationUtil.normal(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
                 break;
-            case R.id.btn_big_text:
+            case 1:
+                NotificationUtil.normalWithAction(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
+                break;
+            case 2:
                 NotificationUtil.bigText(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
                 break;
-            case R.id.btn_inbox:
+            case 3:
                 NotificationUtil.inbox(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
                 break;
-            case R.id.btn_big_picture:
+            case 4:
                 NotificationUtil.bigPicture(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
                 break;
-            case R.id.btn_messaging:
+            case 5:
                 NotificationUtil.messaging(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
                 break;
-            case R.id.btn_media:
+            case 6:
                 NotificationUtil.media(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
                 break;
-            case R.id.btn_custom:
-                //NotificationUtil.custom(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
+            case 7:
                 break;
-            case R.id.btn_cancel:
+            default:
                 NotificationUtil.cancel(this);
                 break;
         }

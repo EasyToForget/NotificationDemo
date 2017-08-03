@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.SystemClock;
+import android.support.v4.app.RemoteInput;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.NotificationCompat;
 import android.widget.RemoteViews;
@@ -66,8 +67,57 @@ public class NotificationUtil {
         notificationManager.notify(isOnly ? ID_FOR_NORMAL : (int) System.currentTimeMillis(), builder.build());
     }
 
+    public static void normalWithAction(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel, boolean isOnly) {
+        Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_round);
+
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        intent.setClass(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) SystemClock.uptimeMillis(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        builder.setLargeIcon(largeIcon)
+                .setSmallIcon(R.drawable.cry)
+                .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
+                .setContentTitle("This is normal title")
+                .setContentText("This is normal message")
+                .setAutoCancel(isAutoCancel)
+                .setContentIntent(pendingIntent);
+
+        if (isSound) {
+            builder.setSound(Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.message));
+        } else {
+            builder.setDefaults(Notification.DEFAULT_ALL);
+        }
+
+        if (isShowLock) {
+            builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        }
+
+        builder.setPriority(isHeads ? NotificationCompat.PRIORITY_MAX : NotificationCompat.PRIORITY_DEFAULT);
+
+
+        RemoteInput input = new RemoteInput.Builder("key_text_reply").setLabel("reply").build();
+        NotificationCompat.Action action = new NotificationCompat.Action.Builder(R.drawable.cry, "reply", pendingIntent)
+                .addRemoteInput(input)
+                .setAllowGeneratedReplies(true)
+                .build();
+
+        builder.addAction(action);
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(isOnly ? ID_FOR_NORMAL : (int) System.currentTimeMillis(), builder.build());
+    }
+
 
     public static void bigText(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel, boolean isOnly) {
+        String title = "This is big title";
+        String text = "This is big big big big big big big big big big big big " +
+                "big big big big big big big big big big big big big big big big " +
+                "big big big big big big big big message";
+
         Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_round);
 
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -78,18 +128,19 @@ public class NotificationUtil {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (int) SystemClock.uptimeMillis(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.BigTextStyle style = new NotificationCompat.BigTextStyle();
-        style.bigText("This is big big big big big big big big big big big big " +
-                "big big big big big big big big big big big big big big big big " +
-                "big big big big big big big big message");
-        style.setBigContentTitle("This is big title");
+        style.setBigContentTitle(title);
+        style.bigText(text);
         style.setSummaryText(context.getString(R.string.app_name));
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setLargeIcon(largeIcon)
                 .setSmallIcon(R.drawable.cry)
-                .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
-                .setContentTitle("This is big title")
-                .setContentText("This is big message")
+                .setTicker(context.getString(R.string.app_name))
+                .setWhen(System.currentTimeMillis())
+                .setContentTitle(title)
+                .setContentText(text)
                 .setStyle(style)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setAutoCancel(isAutoCancel)
                 .setContentIntent(pendingIntent);
 
@@ -277,7 +328,7 @@ public class NotificationUtil {
 
     }
 
-    public static void cancel(Context context){
+    public static void cancel(Context context) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
     }

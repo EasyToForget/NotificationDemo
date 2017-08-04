@@ -44,6 +44,7 @@ public class NotificationService extends Service {
 
         initNotification();
 
+        //register action broadcast
         IntentFilter filter = new IntentFilter();
         filter.addAction(IntentAction.NOTIFICATION_LOVE);
         filter.addAction(IntentAction.NOTIFICATION_BACK);
@@ -57,7 +58,6 @@ public class NotificationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         return Service.START_STICKY;
     }
 

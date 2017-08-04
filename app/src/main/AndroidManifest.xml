@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".SecondActivity"></activity>
         <activity android:name=".ThirdActivity"></activity>
+
+        <receiver android:name=".receiver.NotificationReceiver"/>
     </application>
 
 </manifest>

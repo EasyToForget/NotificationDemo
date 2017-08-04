@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements NotificationAdapt
                 NotificationUtil.media(context, cbSound.isChecked(), cbLock.isChecked());
                 break;
             case 8:
+                NotificationUtil.customView(context);
                 break;
             default:
                 NotificationUtil.cancel(context);

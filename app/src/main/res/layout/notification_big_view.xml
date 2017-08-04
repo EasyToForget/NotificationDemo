@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="112dp">
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/champion" />
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/note_btn_close_white" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_toRightOf="@id/iv_logo"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextAppearance.AppCompat.Notification.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="八十年代的歌" />
+
+        <TextView
+            android:id="@+id/tv_text"
+            style="@style/TextAppearance.AppCompat.Notification.Info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_marginTop="5dp"
+            android:text="赵雷 - 无法长大" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginTop="64dp"
+        android:layout_toRightOf="@id/iv_logo"
+        android:background="#CCC" />
+
+    <RelativeLayout
+        android:id="@+id/ll_btn"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/iv_logo"
+        android:gravity="center_vertical">
+
+
+        <ImageView
+            android:id="@+id/iv_love"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="centerInside"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/note_btn_love_white" />
+
+        <ImageView
+            android:id="@+id/iv_pause"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/note_btn_pause_white" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="18dp"
+            android:layout_toLeftOf="@id/iv_pause"
+            android:contentDescription="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/note_btn_pre_white" />
+
+        <ImageView
+            android:id="@+id/iv_next"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@id/iv_pause"
+            android:contentDescription="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/note_btn_next_white" />
+
+        <ImageView
+            android:id="@+id/iv_lyc"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@null"
+            android:scaleType="centerInside"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/note_btn_lyc_white" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

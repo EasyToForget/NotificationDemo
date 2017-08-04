@@ -9,10 +9,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.app.RemoteInput;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.NotificationCompat;
+import android.view.View;
+import android.widget.RemoteViews;
 
 import com.smile.notificationdemo.MainActivity;
 import com.smile.notificationdemo.R;
@@ -589,12 +593,45 @@ public class NotificationUtil {
         builder.addAction(R.drawable.pause, "", pendingPause);
         builder.addAction(R.drawable.next, "", pendingNext);
 
-
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(ID_FOR_MEDIA, builder.build());
 
     }
 
+    public static void customView(Context context){
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        intent.setClass(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        int requestCode = (int) SystemClock.uptimeMillis();
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        builder.setSmallIcon(R.drawable.cry)
+                .setTicker("物流控（足迹版）")
+                .setWhen(System.currentTimeMillis())
+                .setOngoing(true)
+                .setContentIntent(pendingIntent);
+
+        RemoteViews NormalView = new RemoteViews(context.getPackageName(), R.layout.notification_view);
+        builder.setCustomContentView(NormalView);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            RemoteViews expandView = new RemoteViews(context.getPackageName(), R.layout.notification_big_view);
+            builder.setCustomBigContentView(expandView);
+            builder.setPriority(Notification.PRIORITY_MAX);
+        }
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(ID_FOR_CUSTOM_VIEW, builder.build());
+    }
+
+    /**
+     * cancel all notifications
+     *
+     * @param context context
+     */
     public static void cancel(Context context) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();

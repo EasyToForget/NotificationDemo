@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.smile.notificationdemo.base.BundleKey;
 import com.smile.notificationdemo.base.IntentAction;
 import com.smile.notificationdemo.model.Message;
+import com.smile.notificationdemo.service.NotificationService;
 import com.smile.notificationdemo.utils.NotificationUtil;
 import com.smile.notificationdemo.utils.PrefUtil;
 
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements NotificationAdapt
                 NotificationUtil.media(context, cbSound.isChecked(), cbLock.isChecked());
                 break;
             case 8:
-                NotificationUtil.customView(context);
+                startService(new Intent(this, NotificationService.class));
                 break;
             default:
                 NotificationUtil.cancel(context);

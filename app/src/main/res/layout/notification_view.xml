@@ -47,36 +47,36 @@
         android:orientation="horizontal">
 
 
-        <ImageView
+        <ImageButton
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/iv_pause"
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:scaleType="centerInside"
             android:src="@drawable/note_btn_pause_white" />
 
-        <ImageView
+        <ImageButton
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/iv_next"
             android:layout_width="36dp"
             android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:scaleType="centerInside"
             android:src="@drawable/note_btn_next_white" />
 
-        <ImageView
+        <ImageButton
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/iv_lyc"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:scaleType="centerInside"
             android:src="@drawable/note_btn_lyc_white" />
 
-        <ImageView
+        <ImageButton
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/iv_close"
             android:layout_width="32dp"
             android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:scaleType="centerInside"
             android:src="@drawable/note_btn_close_white" />
 
 

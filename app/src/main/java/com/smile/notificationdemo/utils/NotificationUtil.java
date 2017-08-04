@@ -22,6 +22,7 @@ import com.smile.notificationdemo.MainActivity;
 import com.smile.notificationdemo.R;
 import com.smile.notificationdemo.model.Message;
 import com.smile.notificationdemo.receiver.NotificationReceiver;
+import com.smile.notificationdemo.service.NotificationService;
 
 import java.util.List;
 
@@ -555,7 +556,8 @@ public class NotificationUtil {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setLargeIcon(largeIcon)
                 .setSmallIcon(R.drawable.cry)
-                .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
+                .setTicker(context.getString(R.string.app_name))
+                .setWhen(System.currentTimeMillis())
                 .setContentTitle(title)
                 .setContentText(text)
                 .setCategory(NotificationCompat.CATEGORY_TRANSPORT)
@@ -635,6 +637,17 @@ public class NotificationUtil {
     public static void cancel(Context context) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
+        context.stopService(new Intent(context, NotificationService.class));
+    }
+
+    /**
+     * cancel target id notifications
+     *
+     * @param context context
+     */
+    public static void cancel(Context context, int id) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(id);
     }
 
 }

@@ -34,7 +34,9 @@
             style="@style/TextAppearance.AppCompat.Notification.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="八十年代的歌" />
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Beautiful In White" />
 
         <TextView
             android:id="@+id/tv_text"
@@ -43,7 +45,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_title"
             android:layout_marginTop="5dp"
-            android:text="赵雷 - 无法长大" />
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Shane Filan - Beautiful In White" />
 
     </RelativeLayout>
 

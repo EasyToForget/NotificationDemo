@@ -25,7 +25,9 @@
             style="@style/TextAppearance.AppCompat.Notification.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="八十年代的歌" />
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Beautiful In White" />
 
         <TextView
             android:id="@+id/tv_text"
@@ -33,7 +35,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="赵雷 - 无法长大" />
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Shane Filan - Beautiful In White" />
 
     </LinearLayout>
 
@@ -48,32 +52,32 @@
 
 
         <ImageButton
-            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/iv_pause"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:contentDescription="@null"
             android:src="@drawable/note_btn_pause_white" />
 
         <ImageButton
-            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/iv_next"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="36dp"
             android:layout_height="match_parent"
             android:contentDescription="@null"
             android:src="@drawable/note_btn_next_white" />
 
         <ImageButton
-            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/iv_lyc"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:contentDescription="@null"
             android:src="@drawable/note_btn_lyc_white" />
 
         <ImageButton
-            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/iv_close"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="32dp"
             android:layout_height="match_parent"
             android:contentDescription="@null"

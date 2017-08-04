@@ -1,4 +1,4 @@
-package com.smile.notificationdemo;
+package com.smile.notificationdemo.base;
 
 /**
  * @author Smile Wei

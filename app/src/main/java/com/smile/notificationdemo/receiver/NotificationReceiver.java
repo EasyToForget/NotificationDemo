@@ -8,9 +8,13 @@ import android.os.Bundle;
 import android.support.v4.app.RemoteInput;
 import android.widget.Toast;
 
-import com.smile.notificationdemo.BundleKey;
-import com.smile.notificationdemo.IntentAction;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.smile.notificationdemo.model.Message;
 import com.smile.notificationdemo.utils.NotificationUtil;
+import com.smile.notificationdemo.utils.PrefUtil;
+
+import java.util.List;
 
 /**
  * @author Smile Wei
@@ -50,12 +54,35 @@ public class NotificationReceiver extends BroadcastReceiver {
                 if (input == null)
                     return;
                 //Do something
-                Intent intent1 = new Intent();
-                intent1.setAction(IntentAction.MESSAGING_REPLY);
-                intent1.putExtra(BundleKey.TEXT, input.getCharSequence(NotificationUtil.KEY_TEXT_REPLY));
-                context.sendBroadcast(intent1);
+//                Intent intent1 = new Intent();
+//                intent1.setAction(IntentAction.MESSAGING_REPLY);
+//                intent1.putExtra(BundleKey.TEXT, input.getCharSequence(NotificationUtil.KEY_TEXT_REPLY));
+//                context.sendBroadcast(intent1);
+
+
+                String text = input.getString(NotificationUtil.KEY_TEXT_REPLY);
+
+                List<Message> list = new Gson().fromJson(PrefUtil.getMessage(context)
+                        , new TypeToken<List<Message>>() {}.getType());
+                list.add(new Message(text, System.currentTimeMillis(), null));
+
+                PrefUtil.setMessage(context, new Gson().toJson(list));
+
+                NotificationUtil.messagingUpdate(context, list);
                 break;
             }
+            case NotificationUtil.BACK:
+                //Do something
+                Toast.makeText(context, NotificationUtil.BACK, Toast.LENGTH_SHORT).show();
+                break;
+            case NotificationUtil.NEXT:
+                //Do something
+                Toast.makeText(context, NotificationUtil.NEXT, Toast.LENGTH_SHORT).show();
+                break;
+            case NotificationUtil.PAUSE:
+                //Do something
+                Toast.makeText(context, NotificationUtil.PAUSE, Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 }

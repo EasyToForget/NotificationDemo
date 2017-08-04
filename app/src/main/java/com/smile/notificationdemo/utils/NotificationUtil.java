@@ -13,11 +13,10 @@ import android.os.SystemClock;
 import android.support.v4.app.RemoteInput;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.NotificationCompat;
-import android.widget.RemoteViews;
 
-import com.smile.notificationdemo.BundleKey;
 import com.smile.notificationdemo.MainActivity;
 import com.smile.notificationdemo.R;
+import com.smile.notificationdemo.model.Message;
 import com.smile.notificationdemo.receiver.NotificationReceiver;
 
 import java.util.List;
@@ -32,6 +31,9 @@ public class NotificationUtil {
     public final static String REPLY_MESSAGING = "reply_messaging";
     public final static String MAKE_AS_READ = "make_as_read";
     public final static String DELETE = "delete";
+    public final static String BACK = "back";
+    public final static String NEXT = "next";
+    public final static String PAUSE = "pause";
     public final static String KEY_TEXT_REPLY = "key_text_reply";
     public final static int ID_FOR_NORMAL = 1;
     public final static int ID_FOR_BIG_TEXT = 2;
@@ -159,8 +161,8 @@ public class NotificationUtil {
                 .build();
 
         builder.addAction(action);
-        builder.addAction(new NotificationCompat.Action(0, "mask as read", pendingMaskAsRead));
-        builder.addAction(new NotificationCompat.Action(0, "delete", pendingDelete));
+        builder.addAction(0, "mask as read", pendingMaskAsRead);
+        builder.addAction(0, "delete", pendingDelete);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(ID_FOR_NORMAL_ACTION, builder.build());
@@ -291,9 +293,8 @@ public class NotificationUtil {
      * @param isShowLock   show when mobile locks screen
      * @param isHeads      heads up dialog
      * @param isAutoCancel cancel notification while click
-     * @param isOnly       only show one notification
      */
-    public static void group(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel, boolean isOnly) {
+    public static void group(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel) {
         String title = "This is inbox title";
         String text = "This is inbox message";
 
@@ -393,8 +394,18 @@ public class NotificationUtil {
         notificationManager.notify(isOnly ? ID_FOR_BIG_PICTURE : (int) System.currentTimeMillis(), builder.build());
     }
 
+    /**
+     * Show big messaging notification (group chat)
+     *
+     * @param context      context
+     * @param isSound      Set the sound to play.  if no, it will play on the default stream.
+     * @param isShowLock   show when mobile locks screen
+     * @param isHeads      heads up dialog
+     * @param isAutoCancel cancel notification while click
+     * @param list         message list
+     */
     public static void messaging(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel,
-                                 List<NotificationCompat.MessagingStyle.Message> list) {
+                                 List<Message> list) {
         String title = "This is messaging title";
         String text = "This is messaging message";
 
@@ -407,8 +418,8 @@ public class NotificationUtil {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.MessagingStyle style = new NotificationCompat.MessagingStyle("Smile");
 
-        for (NotificationCompat.MessagingStyle.Message message : list){
-            style.addMessage(message);
+        for (Message message : list) {
+            style.addMessage(message.getText(), message.getTime(), message.getSender());
         }
 
         style.setConversationTitle(title);
@@ -454,12 +465,79 @@ public class NotificationUtil {
         notificationManager.notify(ID_FOR_MESSAGING, builder.build());
     }
 
-    public static void media(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel, boolean isOnly) {
-        Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.google);
+    /**
+     * Show big messaging update notification (group chat)
+     *
+     * @param context context
+     * @param list    message list
+     */
+    public static void messagingUpdate(Context context, List<Message> list) {
+        String title = "This is messaging title";
+        String text = "This is messaging message";
+
+        Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.icon);
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.setClass(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        int requestCode = (int) SystemClock.uptimeMillis();
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        NotificationCompat.MessagingStyle style = new NotificationCompat.MessagingStyle("Smile");
+
+        for (Message message : list) {
+            style.addMessage(message.getText(), message.getTime(), message.getSender());
+        }
+
+        style.setConversationTitle(title);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        builder.setLargeIcon(largeIcon)
+                .setSmallIcon(R.drawable.cry)
+                .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
+                .setContentTitle(title)
+                .setContentText(text)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setStyle(style)
+                .setContentIntent(pendingIntent);
+
+        RemoteInput input = new RemoteInput.Builder(KEY_TEXT_REPLY).setLabel("reply").build();
+
+        Intent reply = new Intent();
+        reply.setAction(REPLY_MESSAGING);
+        reply.setClass(context, NotificationReceiver.class);
+        PendingIntent pendingReply = PendingIntent.getBroadcast(context, (int) SystemClock.uptimeMillis(), reply, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        NotificationCompat.Action action = new NotificationCompat.Action.Builder(0, "reply", pendingReply)
+                .addRemoteInput(input)
+                .setAllowGeneratedReplies(true)
+                .build();
+
+        builder.addAction(action);
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(ID_FOR_MESSAGING, builder.build());
+    }
+
+
+    /**
+     * Show big media notification (group chat)
+     *
+     * @param context    context
+     * @param isSound    Set the sound to play.  if no, it will play on the default stream.
+     * @param isShowLock show when mobile locks screen
+     */
+    public static void media(Context context, boolean isSound, boolean isShowLock) {
+        String title = "This is media title";
+        String text = "This is media message";
+
+        Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.google);
+
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        intent.setClass(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+
         int requestCode = (int) SystemClock.uptimeMillis();
         PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.MediaStyle style = new NotificationCompat.MediaStyle();
@@ -474,17 +552,12 @@ public class NotificationUtil {
         builder.setLargeIcon(largeIcon)
                 .setSmallIcon(R.drawable.cry)
                 .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
-                .setContentTitle("This is media title")
-                .setContentText("This is media message")
+                .setContentTitle(title)
+                .setContentText(text)
                 .setCategory(NotificationCompat.CATEGORY_TRANSPORT)
                 .setStyle(style)
                 .setOngoing(true)
-                //.setAutoCancel(isAutoCancel)
                 .setContentIntent(pendingIntent);
-
-        builder.addAction(R.drawable.back, "", null);
-        builder.addAction(R.drawable.pause, "", null);
-        builder.addAction(R.drawable.next, "", null);
 
 
         if (isSound) {
@@ -495,10 +568,30 @@ public class NotificationUtil {
         if (isShowLock) {
             builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         }
-        //builder.setPriority(isHeads ? NotificationCompat.PRIORITY_MAX : NotificationCompat.PRIORITY_DEFAULT);
+
+
+        Intent back = new Intent();
+        back.setAction(BACK);
+        back.setClass(context, NotificationReceiver.class);
+        PendingIntent pendingBack = PendingIntent.getBroadcast(context, (int) SystemClock.uptimeMillis(), back, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent next = new Intent();
+        next.setAction(NEXT);
+        next.setClass(context, NotificationReceiver.class);
+        PendingIntent pendingNext = PendingIntent.getBroadcast(context, (int) SystemClock.uptimeMillis(), next, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent pause = new Intent();
+        pause.setAction(PAUSE);
+        pause.setClass(context, NotificationReceiver.class);
+        PendingIntent pendingPause = PendingIntent.getBroadcast(context, (int) SystemClock.uptimeMillis(), pause, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        builder.addAction(R.drawable.back, "", pendingBack);
+        builder.addAction(R.drawable.pause, "", pendingPause);
+        builder.addAction(R.drawable.next, "", pendingNext);
+
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(isOnly ? ID_FOR_MEDIA : (int) System.currentTimeMillis(), builder.build());
+        notificationManager.notify(ID_FOR_MEDIA, builder.build());
 
     }
 

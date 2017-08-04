@@ -6,14 +6,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 
+import com.google.gson.Gson;
+import com.smile.notificationdemo.base.BundleKey;
+import com.smile.notificationdemo.base.IntentAction;
+import com.smile.notificationdemo.model.Message;
 import com.smile.notificationdemo.utils.NotificationUtil;
+import com.smile.notificationdemo.utils.PrefUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +40,11 @@ public class MainActivity extends AppCompatActivity implements NotificationAdapt
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
+    private Context context;
+
     private List<String> list = new ArrayList<>();
 
-    private List<NotificationCompat.MessagingStyle.Message> messageList = new ArrayList<>();
+    private List<Message> messageList = new ArrayList<>();
 
     private MessageReceiver receiver= new MessageReceiver();
     private IntentFilter filter = new IntentFilter();
@@ -53,10 +59,13 @@ public class MainActivity extends AppCompatActivity implements NotificationAdapt
     }
 
     private void initView() {
+        context = getApplicationContext();
+
         list.add("Normal");
         list.add("Normal with action");
         list.add("Big Text");
         list.add("Inbox");
+        list.add("Group");
         list.add("Big Picture");
         list.add("Messaging");
         list.add("Media");
@@ -69,14 +78,15 @@ public class MainActivity extends AppCompatActivity implements NotificationAdapt
         adapter.setOnItemClickListener(this);
         recyclerView.setAdapter(adapter);
 
-        messageList.add(new NotificationCompat.MessagingStyle.Message("What do you plan to do on the weekend?", System.currentTimeMillis(), "Smile"));
-        messageList.add(new NotificationCompat.MessagingStyle.Message("Sleep.", System.currentTimeMillis(), "Tracy"));
-        messageList.add(new NotificationCompat.MessagingStyle.Message("Go to Beijing..", System.currentTimeMillis(), "SB"));
-        messageList.add(new NotificationCompat.MessagingStyle.Message("Play football", System.currentTimeMillis(), "Naocan"));
-        messageList.add(new NotificationCompat.MessagingStyle.Message("Coding...", System.currentTimeMillis(), "Developer"));
+        messageList.add(new Message("What do you plan to do on the weekend?", System.currentTimeMillis(), "Smile"));
+        messageList.add(new Message("Sleep.", System.currentTimeMillis(), "Tracy"));
+        messageList.add(new Message("Go to Beijing..", System.currentTimeMillis(), "SB"));
+        messageList.add(new Message("Play football", System.currentTimeMillis(), "Naocan"));
+        messageList.add(new Message("Coding...", System.currentTimeMillis(), "Developer"));
+
+        PrefUtil.setMessage(context, new Gson().toJson(messageList));
 
         filter.addAction(IntentAction.MESSAGING_REPLY);
-
         registerReceiver(receiver, filter);
     }
 
@@ -90,30 +100,33 @@ public class MainActivity extends AppCompatActivity implements NotificationAdapt
     public void onItemClick(int position) {
         switch (position) {
             case 0:
-                NotificationUtil.normal(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
+                NotificationUtil.normal(context, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
                 break;
             case 1:
-                NotificationUtil.normalWithAction(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked());
+                NotificationUtil.normalWithAction(context, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked());
                 break;
             case 2:
-                NotificationUtil.bigText(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
+                NotificationUtil.bigText(context, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
                 break;
             case 3:
-                NotificationUtil.group(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
+                NotificationUtil.inbox(context, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
                 break;
             case 4:
-                NotificationUtil.bigPicture(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
+                NotificationUtil.group(context, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked());
                 break;
             case 5:
-                NotificationUtil.messaging(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), messageList);
+                NotificationUtil.bigPicture(context, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
                 break;
             case 6:
-                NotificationUtil.media(this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), cbOnly.isChecked());
+                NotificationUtil.messaging(context, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), messageList);
                 break;
             case 7:
+                NotificationUtil.media(context, cbSound.isChecked(), cbLock.isChecked());
+                break;
+            case 8:
                 break;
             default:
-                NotificationUtil.cancel(this);
+                NotificationUtil.cancel(context);
                 break;
         }
     }
@@ -138,8 +151,8 @@ public class MainActivity extends AppCompatActivity implements NotificationAdapt
                 return;
             switch (intent.getAction()){
                 case IntentAction.MESSAGING_REPLY:
-                    messageList.add(new NotificationCompat.MessagingStyle.Message(intent.getStringExtra(BundleKey.TEXT), System.currentTimeMillis(), null));
-                    NotificationUtil.messaging(MainActivity.this, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), messageList);
+                    messageList.add(new Message(intent.getStringExtra(BundleKey.TEXT), System.currentTimeMillis(), null));
+                    NotificationUtil.messaging(context, cbSound.isChecked(), cbLock.isChecked(), cbHead.isChecked(), cbAutoCancel.isChecked(), messageList);
                     break;
             }
         }

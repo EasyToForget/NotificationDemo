@@ -12,10 +12,12 @@ import android.os.Build.VERSION;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.widget.RemoteViews;
 
 import com.smile.notificationdemo.MainActivity;
 import com.smile.notificationdemo.R;
+import com.smile.notificationdemo.ThirdActivity;
 import com.smile.notificationdemo.base.IntentAction;
 import com.smile.notificationdemo.utils.NotificationUtil;
 
@@ -69,13 +71,20 @@ public class NotificationService extends Service {
     }
 
     private void initNotification() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        intent.setClass(context, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+//        Intent intent = new Intent(context, MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        Intent secondIntent = new Intent(context, ThirdActivity.class);
+//        Intent[] intents = {intent, secondIntent};
+//        PendingIntent pendingIntent = PendingIntent.getActivities(context, (int) SystemClock.uptimeMillis(), intents, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        int requestCode = (int) SystemClock.uptimeMillis();
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        Intent intent = new Intent();
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setClass(context, ThirdActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addParentStack(ThirdActivity.class);
+        stackBuilder.addNextIntent(intent);
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent((int) SystemClock.uptimeMillis(), PendingIntent.FLAG_UPDATE_CURRENT);
 
         PendingIntent loveIntent = PendingIntent.getBroadcast(context, 0, new Intent(IntentAction.NOTIFICATION_LOVE), PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent backIntent = PendingIntent.getBroadcast(context, 1, new Intent(IntentAction.NOTIFICATION_BACK), PendingIntent.FLAG_UPDATE_CURRENT);

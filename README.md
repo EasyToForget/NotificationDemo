@@ -5,7 +5,7 @@
 
 
 ### Demo
-![image](https://raw.githubusercontent.com/EasyToForget/TaobaoDemo/master/demo01.gif)
+![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/demo01.gif)
 ![image](https://raw.githubusercontent.com/EasyToForget/TaobaoDemo/master/demo02.gif)
 
 

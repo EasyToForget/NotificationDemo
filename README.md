@@ -2,13 +2,12 @@
 > **A sample app show Android notification features.**
 
 
-## Demo
 
-#### MainActivity
-![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/demo01.gif)
+### MainActivity
+![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo01.gif)
 
-### Normal Style
-![image](https://raw.githubusercontent.com/EasyToForget/TaobaoDemo/master/demo02.gif)
+### Normal Notification
+![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo02.gif)
 
 
 ### License

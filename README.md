@@ -1,6 +1,5 @@
 ## Notification
 > **A sample app show Android notification features.**
-> **Simply hit a button on the main screen and the desired notification will appear.**
 
 
 ## Demo

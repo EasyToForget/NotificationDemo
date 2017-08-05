@@ -1,4 +1,4 @@
-package com.smile.notificationdemo;
+package com.smile.notificationdemo.ui.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,10 +13,12 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 
 import com.google.gson.Gson;
+import com.smile.notificationdemo.R;
 import com.smile.notificationdemo.base.BundleKey;
 import com.smile.notificationdemo.base.IntentAction;
 import com.smile.notificationdemo.model.Message;
 import com.smile.notificationdemo.service.NotificationService;
+import com.smile.notificationdemo.ui.adapter.NotificationAdapter;
 import com.smile.notificationdemo.utils.NotificationUtil;
 import com.smile.notificationdemo.utils.PrefUtil;
 

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context="com.smile.notificationdemo.MainActivity">
+    tools:context="com.smile.notificationdemo.ui.activity.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

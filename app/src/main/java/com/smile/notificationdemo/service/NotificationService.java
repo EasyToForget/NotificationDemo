@@ -10,15 +10,13 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.widget.RemoteViews;
 
 import com.smile.notificationdemo.BuildConfig;
-import com.smile.notificationdemo.MainActivity;
+import com.smile.notificationdemo.ui.activity.MainActivity;
 import com.smile.notificationdemo.R;
-import com.smile.notificationdemo.ThirdActivity;
+import com.smile.notificationdemo.ui.activity.ThirdActivity;
 import com.smile.notificationdemo.app.DemoApplication;
 import com.smile.notificationdemo.base.IntentAction;
 import com.smile.notificationdemo.utils.NotificationUtil;

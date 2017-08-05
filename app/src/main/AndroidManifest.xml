@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:clearTaskOnLaunch="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,8 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondActivity" />
-        <activity android:name=".ThirdActivity"/>
+        <activity android:name=".ui.activity.SecondActivity" />
+        <activity android:name=".ui.activity.ThirdActivity"/>
         <!--android:launchMode="singleTask"-->
         <!--<activity android:name=".ThirdActivity"-->
         <!--android:parentActivityName=".MainActivity">-->

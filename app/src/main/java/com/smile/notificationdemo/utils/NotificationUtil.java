@@ -14,7 +14,7 @@ import android.support.v4.app.RemoteInput;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.NotificationCompat;
 
-import com.smile.notificationdemo.MainActivity;
+import com.smile.notificationdemo.ui.activity.MainActivity;
 import com.smile.notificationdemo.R;
 import com.smile.notificationdemo.model.Message;
 import com.smile.notificationdemo.receiver.NotificationReceiver;

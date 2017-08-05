@@ -1,11 +1,15 @@
-### Notification
+## Notification
 > **一个RecyclerView实现淘宝首页**
 
 > **使用RecyclerView的多条目布局，充分利用spanCount**
 
 
-### Demo
+## Demo
+
+### MainActivity
 ![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/demo01.gif)
+
+### Normal Style
 ![image](https://raw.githubusercontent.com/EasyToForget/TaobaoDemo/master/demo02.gif)
 
 

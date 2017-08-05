@@ -1,12 +1,11 @@
 ## Notification
-> **一个RecyclerView实现淘宝首页**
-
-> **使用RecyclerView的多条目布局，充分利用spanCount**
+> **A sample app show Android notification features.**
+> **Simply hit a button on the main screen and the desired notification will appear.**
 
 
 ## Demo
 
-### MainActivity
+#### MainActivity
 ![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/demo01.gif)
 
 ### Normal Style

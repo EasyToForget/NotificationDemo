@@ -55,7 +55,7 @@
 ### License
 
 ```
-Calendar for Android
+NotificationDemo for Android
 Copyright (c) 2017 Smile Wei (http://github.com/EasyToForget).
 
 Licensed under the Apache License, Version 2.0 (the "License");

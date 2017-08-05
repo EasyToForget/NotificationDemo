@@ -15,11 +15,13 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.widget.RemoteViews;
 
+import com.smile.notificationdemo.BuildConfig;
 import com.smile.notificationdemo.MainActivity;
 import com.smile.notificationdemo.R;
 import com.smile.notificationdemo.ThirdActivity;
 import com.smile.notificationdemo.base.IntentAction;
 import com.smile.notificationdemo.utils.NotificationUtil;
+import com.smile.notificationdemo.utils.Util;
 
 public class NotificationService extends Service {
     private Context context;
@@ -48,6 +50,7 @@ public class NotificationService extends Service {
 
         //register action broadcast
         IntentFilter filter = new IntentFilter();
+        filter.addAction(IntentAction.NOTIFICATION_CLICK);
         filter.addAction(IntentAction.NOTIFICATION_LOVE);
         filter.addAction(IntentAction.NOTIFICATION_BACK);
         filter.addAction(IntentAction.NOTIFICATION_PAUSE);
@@ -71,27 +74,43 @@ public class NotificationService extends Service {
     }
 
     private void initNotification() {
+//        Intent intent = new Intent();
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.setClass(context, ThirdActivity.class);
+//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+//        stackBuilder.addParentStack(ThirdActivity.class);
+//        stackBuilder.addNextIntent(intent);
+//        PendingIntent pendingIntent = stackBuilder.getPendingIntent((int) SystemClock.uptimeMillis(), PendingIntent.FLAG_UPDATE_CURRENT);
+
+
 //        Intent intent = new Intent(context, MainActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //        Intent secondIntent = new Intent(context, ThirdActivity.class);
 //        Intent[] intents = {intent, secondIntent};
 //        PendingIntent pendingIntent = PendingIntent.getActivities(context, (int) SystemClock.uptimeMillis(), intents, PendingIntent.FLAG_UPDATE_CURRENT);
 
+//        PendingIntent pendingIntent;
+//        if (Util.isAppAlive(context, BuildConfig.APPLICATION_ID)) {
+//            Intent intent = new Intent();
+//            intent.setClass(context, ThirdActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            pendingIntent = PendingIntent.getActivity(context, (int) SystemClock.uptimeMillis(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        } else {
+//            Intent intent = new Intent(context, MainActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            Intent secondIntent = new Intent(context, ThirdActivity.class);
+//            Intent[] intents = {intent, secondIntent};
+//            pendingIntent = PendingIntent.getActivities(context, (int) SystemClock.uptimeMillis(), intents, PendingIntent.FLAG_UPDATE_CURRENT);
+//        }
 
-        Intent intent = new Intent();
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setClass(context, ThirdActivity.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(ThirdActivity.class);
-        stackBuilder.addNextIntent(intent);
-        PendingIntent pendingIntent = stackBuilder.getPendingIntent((int) SystemClock.uptimeMillis(), PendingIntent.FLAG_UPDATE_CURRENT);
 
-        PendingIntent loveIntent = PendingIntent.getBroadcast(context, 0, new Intent(IntentAction.NOTIFICATION_LOVE), PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent backIntent = PendingIntent.getBroadcast(context, 1, new Intent(IntentAction.NOTIFICATION_BACK), PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent pauseIntent = PendingIntent.getBroadcast(context, 2, new Intent(IntentAction.NOTIFICATION_PAUSE), PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent nextIntent = PendingIntent.getBroadcast(context, 3, new Intent(IntentAction.NOTIFICATION_NEXT), PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent lycIntent = PendingIntent.getBroadcast(context, 4, new Intent(IntentAction.NOTIFICATION_LYC), PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent closeIntent = PendingIntent.getBroadcast(context, 5, new Intent(IntentAction.NOTIFICATION_CLOSE), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), new Intent(IntentAction.NOTIFICATION_CLICK), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent loveIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), new Intent(IntentAction.NOTIFICATION_LOVE), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent backIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), new Intent(IntentAction.NOTIFICATION_BACK), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pauseIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), new Intent(IntentAction.NOTIFICATION_PAUSE), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent nextIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), new Intent(IntentAction.NOTIFICATION_NEXT), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent lycIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), new Intent(IntentAction.NOTIFICATION_LYC), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent closeIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), new Intent(IntentAction.NOTIFICATION_CLOSE), PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setSmallIcon(R.drawable.cry)
@@ -133,6 +152,20 @@ public class NotificationService extends Service {
                 return;
             }
             switch (data.getAction()) {
+                case IntentAction.NOTIFICATION_CLICK:
+                    if (Util.isAppAlive(context, BuildConfig.APPLICATION_ID) && !MainActivity.isFinished) {
+                        Intent intent = new Intent();
+                        intent.setClass(context, ThirdActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(context, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        Intent secondIntent = new Intent(context, ThirdActivity.class);
+                        Intent[] intents = {intent, secondIntent};
+                        startActivities(intents);
+                    }
+                    break;
                 case IntentAction.NOTIFICATION_LOVE:
                     NormalView.setImageViewResource(R.id.iv_love, isLove ? R.drawable.note_btn_love_white : R.drawable.note_btn_loved);
                     if (VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

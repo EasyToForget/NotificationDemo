@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements NotificationAdapt
     private MessageReceiver receiver= new MessageReceiver();
     private IntentFilter filter = new IntentFilter();
 
+    public static boolean isFinished = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements NotificationAdapt
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        isFinished = true;
         unregisterReceiver(receiver);
     }
 

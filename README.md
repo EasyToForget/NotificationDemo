@@ -4,6 +4,7 @@
 
 
 ### MainActivity
+----
 ![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo01.gif)
 
 ### Normal Notification

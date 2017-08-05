@@ -7,8 +7,49 @@
 ----
 ![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo01.gif)
 
-### Normal Notification
+### Normal notification
+----
 ![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo02.gif)
+
+
+### Normal notification with action
+----
+![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo03.gif)
+
+
+### Big text notification
+----
+![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo04.gif)
+
+
+### Inbox notification
+----
+![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo05.gif)
+
+
+### Bundled notification
+----
+![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo06.gif)
+
+
+### Big picture notification
+----
+![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo07.gif)
+
+
+### Messaging notification
+----
+![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo08.gif)
+
+
+### Media notification
+----
+![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo09.gif)
+
+
+### Custom view notification
+----
+![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo10.gif)
 
 
 ### License

@@ -19,8 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SecondActivity" />
-        <activity android:name=".ThirdActivity"
-            android:launchMode="singleTask"/>
+        <activity android:name=".ThirdActivity"/>
+        <!--android:launchMode="singleTask"-->
         <!--<activity android:name=".ThirdActivity"-->
         <!--android:parentActivityName=".MainActivity">-->
         <!--<meta-data-->

@@ -19,6 +19,7 @@ import com.smile.notificationdemo.BuildConfig;
 import com.smile.notificationdemo.MainActivity;
 import com.smile.notificationdemo.R;
 import com.smile.notificationdemo.ThirdActivity;
+import com.smile.notificationdemo.app.DemoApplication;
 import com.smile.notificationdemo.base.IntentAction;
 import com.smile.notificationdemo.utils.NotificationUtil;
 import com.smile.notificationdemo.utils.Util;
@@ -153,7 +154,7 @@ public class NotificationService extends Service {
             }
             switch (data.getAction()) {
                 case IntentAction.NOTIFICATION_CLICK:
-                    if (Util.isAppAlive(context, BuildConfig.APPLICATION_ID) && !MainActivity.isFinished) {
+                    if (Util.isAppAlive(context, BuildConfig.APPLICATION_ID) && !DemoApplication.getInstance().isAllActivityFinished()) {
                         Intent intent = new Intent();
                         intent.setClass(context, ThirdActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

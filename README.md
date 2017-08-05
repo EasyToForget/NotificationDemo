@@ -5,51 +5,51 @@
 
 ### MainActivity
 ----
-![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo01.gif)
+<img src="gif/demo01.gif" alt="MainActivity"/>
 
 ### Normal notification
 ----
-![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo02.gif)
+<img src="gif/demo02.gif" alt="Normal notification"/>
 
 
-### Normal notification with action
+### Normal notification with actions
 ----
-![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo03.gif)
+<img src="gif/demo03.gif" alt="Normal notification with actions"/>
 
 
 ### Big text notification
 ----
-![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo04.gif)
+<img src="gif/demo04.gif" alt="Big text notification"/>
 
 
 ### Inbox notification
 ----
-![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo05.gif)
+<img src="gif/demo05.gif" alt="Inbox notification"/>
 
 
 ### Bundled notification
 ----
-![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo06.gif)
+<img src="gif/demo06.gif" alt="MainActivity"/>
 
 
 ### Big picture notification
 ----
-![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo07.gif)
+<img src="gif/demo07.gif" alt="Big picture notification"/>
 
 
 ### Messaging notification
 ----
-![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo08.gif)
+<img src="gif/demo08.gif" alt="Messaging notification"/>
 
 
 ### Media notification
 ----
-![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo09.gif)
+<img src="gif/demo09.gif" alt="Media notification"/>
 
 
 ### Custom view notification
 ----
-![image](https://raw.githubusercontent.com/EasyToForget/NotificationDemo/master/gif/demo10.gif)
+<img src="gif/demo10.gif" alt="Custom view notification"/>
 
 
 ### License

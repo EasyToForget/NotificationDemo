@@ -53,11 +53,11 @@ public class DemoApplication extends Application {
     }
 
     /**
-     * get current activity
+     * get top activity
      *
      * @return activity
      */
-    public Activity currentActivity() {
+    public Activity topActivity() {
         if (list == null || list.isEmpty())
             return null;
         return list.get(list.size() - 1);
@@ -78,9 +78,9 @@ public class DemoApplication extends Application {
     }
 
     /**
-     * finish the current activity(top activity)
+     * finish the top activity
      */
-    public void finishCurrentActivity() {
+    public void finishtopActivity() {
         if (list == null || list.isEmpty())
             return;
         finishActivity(list.get(list.size() - 1));

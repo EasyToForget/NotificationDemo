@@ -16,7 +16,7 @@ public class Util {
     /**
      * Check whether the app launched
      *
-     * @param context     一个context
+     * @param context     context
      * @param packageName package name
      * @return true if the app is running.
      */

@@ -71,7 +71,8 @@ public class NotificationUtil {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setLargeIcon(largeIcon)
                 .setSmallIcon(R.drawable.cry)
-                .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
+                .setTicker(context.getString(R.string.app_name))
+                .setWhen(System.currentTimeMillis())
                 .setContentTitle(title)
                 .setContentText(text)
                 .setAutoCancel(isAutoCancel)
@@ -119,7 +120,8 @@ public class NotificationUtil {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setLargeIcon(largeIcon)
                 .setSmallIcon(R.drawable.cry)
-                .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
+                .setTicker(context.getString(R.string.app_name))
+                .setWhen(System.currentTimeMillis())
                 .setContentTitle(title)
                 .setContentText(text)
                 .setAutoCancel(isAutoCancel)
@@ -263,7 +265,8 @@ public class NotificationUtil {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setLargeIcon(largeIcon)
                 .setSmallIcon(R.drawable.cry)
-                .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
+                .setTicker(context.getString(R.string.app_name))
+                .setWhen(System.currentTimeMillis())
                 .setContentTitle("This is inbox title")
                 .setContentText("This is inbox message")
                 .setCategory(NotificationCompat.CATEGORY_EMAIL)
@@ -311,7 +314,8 @@ public class NotificationUtil {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setLargeIcon(largeIcon)
                 .setSmallIcon(R.drawable.cry)
-                .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
+                .setTicker(context.getString(R.string.app_name))
+                .setWhen(System.currentTimeMillis())
                 .setContentTitle(title)
                 .setContentText(text)
                 .setGroup("smile")
@@ -375,7 +379,8 @@ public class NotificationUtil {
 
         builder.setLargeIcon(largeIcon)
                 .setSmallIcon(R.drawable.cry)
-                .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
+                .setTicker(context.getString(R.string.app_name))
+                .setWhen(System.currentTimeMillis())
                 .setContentTitle(title)
                 .setContentText(text)
                 .setStyle(style)
@@ -428,7 +433,8 @@ public class NotificationUtil {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setLargeIcon(largeIcon)
                 .setSmallIcon(R.drawable.cry)
-                .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
+                .setTicker(context.getString(R.string.app_name))
+                .setWhen(System.currentTimeMillis())
                 .setContentTitle(title)
                 .setContentText(text)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
@@ -494,7 +500,8 @@ public class NotificationUtil {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setLargeIcon(largeIcon)
                 .setSmallIcon(R.drawable.cry)
-                .setTicker(context.getString(R.string.app_name)).setWhen(System.currentTimeMillis())
+                .setTicker(context.getString(R.string.app_name))
+                .setWhen(System.currentTimeMillis())
                 .setContentTitle(title)
                 .setContentText(text)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)

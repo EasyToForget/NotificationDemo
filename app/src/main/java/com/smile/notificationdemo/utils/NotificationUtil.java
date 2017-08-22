@@ -29,13 +29,13 @@ import java.util.List;
 
 public class NotificationUtil {
     public final static String REPLY = "reply";
+    public final static String KEY_TEXT_REPLY = "key_text_reply";
     public final static String REPLY_MESSAGING = "reply_messaging";
     public final static String MAKE_AS_READ = "make_as_read";
     public final static String DELETE = "delete";
     public final static String BACK = "back";
     public final static String NEXT = "next";
     public final static String PAUSE = "pause";
-    public final static String KEY_TEXT_REPLY = "key_text_reply";
     public final static int ID_FOR_NORMAL = 1;
     public final static int ID_FOR_BIG_TEXT = 2;
     public final static int ID_FOR_INBOX = 3;
@@ -140,7 +140,7 @@ public class NotificationUtil {
         builder.setPriority(isHeads ? NotificationCompat.PRIORITY_MAX : NotificationCompat.PRIORITY_DEFAULT);
 
 
-        RemoteInput input = new RemoteInput.Builder(KEY_TEXT_REPLY).setLabel("reply").build();
+        RemoteInput input = new RemoteInput.Builder(KEY_TEXT_REPLY).setLabel("请输入内容").build();
 
         Intent reply = new Intent();
         reply.setAction(REPLY);
@@ -185,7 +185,8 @@ public class NotificationUtil {
      */
     public static void bigText(Context context, boolean isSound, boolean isShowLock, boolean isHeads, boolean isAutoCancel, boolean isOnly) {
         String title = "This is big text title";
-        String text = "A notification is a message you can display to the user outside of your application's normal UI. " +
+        String text = "A notification is a message you can display " +
+                "to the user outside of your application's normal UI. " +
                 "When you tell the system to issue a notification, " +
                 "it first appears as an icon in the notification area. ";
 
@@ -551,7 +552,7 @@ public class NotificationUtil {
         NotificationCompat.MediaStyle style = new NotificationCompat.MediaStyle();
         style.setShowCancelButton(true);
         style.setCancelButtonIntent(pendingIntent);
-        style.setShowActionsInCompactView(0, 1, 2);
+        style.setShowActionsInCompactView(0, 1);
 
         style.setMediaSession(new MediaSessionCompat(context, "MediaSession",
                 new ComponentName(context, Intent.ACTION_MEDIA_BUTTON), null).getSessionToken());
